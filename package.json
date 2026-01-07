@@ -4,19 +4,46 @@
   "version": "0.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "cd ../../ && yarn build text-to-image",
+    "pub": "cd ../../ && yarn pub text-to-image",
+    "fastPub": "cd ../../ && yarn bump -3 text-to-image && yarn build text-to-image && yarn pub text-to-image",
+    "test": "node ./test/test.js"
+  },
   "files": [
     "lib",
     "dist"
   ],
+  "contributors": [
+    "pgnqukezrdxmhjso"
+  ],
+  "homepage": "https://github.com/pgnqukezrdxmhjso/koishi-plugin-text-to-image",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pgnqukezrdxmhjso/koishi-plugin-text-to-image.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pgnqukezrdxmhjso/koishi-plugin-text-to-image/issues"
+  },
   "license": "MIT",
-  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",
-    "plugin"
+    "plugin",
+    "text",
+    "image"
   ],
-  "devDependencies": {},
   "peerDependencies": {
-    "koishi": "^4.18.8"
+    "koishi": "^4.18.10"
+  },
+  "devDependencies": {
+    "koishi-plugin-vercel-satori-png-service": "^0.1.9"
+  },
+  "koishi": {
+    "service": {
+      "required": [
+        "vercelSatoriPngService"
+      ]
+    }
   }
 }
