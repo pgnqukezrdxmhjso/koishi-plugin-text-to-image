@@ -75,7 +75,7 @@ async function traverseElements(
 }
 
 export function apply(ctx: Context, config: Config) {
-  const baseStyle = `background:${config.background};`;
+  const baseStyle = `white-space: pre-wrap;background:${config.background};`;
   ctx
     .command("cmdToImg <cmd:text>")
     .alias("c2i")
@@ -85,8 +85,11 @@ export function apply(ctx: Context, config: Config) {
         await traverseElements(elements, async (element) => {
           if (element.type === "text" && !isNull(element.attrs?.content)) {
             const png = await ctx.vercelSatoriPngService.htmlToPng(
-              `<div style="white-space: pre-wrap;${baseStyle}">${element.attrs.content}</div>`,
-              {},
+              `<div style="${baseStyle}">${element.attrs.content}</div>`,
+              {
+                // showLog: true,
+                converter: "skia-canvas-canvg",
+              },
             );
             return h.image((await png.toArray())[0], "image/png");
           }
