@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-text-to-image",
   "description": "text to image",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
@@ -37,12 +37,12 @@
     "koishi": "^4.18.10"
   },
   "devDependencies": {
-    "koishi-plugin-vercel-satori-png-service": "^0.2.0"
+    "koishi-plugin-to-image-service": "^0.0.2"
   },
   "koishi": {
     "service": {
       "required": [
-        "vercelSatoriPngService"
+        "toImageService"
       ]
     }
   }

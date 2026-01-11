@@ -1,10 +1,10 @@
 import { Context, Schema, Fragment, Element, h } from "koishi";
 // noinspection ES6UnusedImports
-import {} from "koishi-plugin-vercel-satori-png-service";
+import {} from "koishi-plugin-to-image-service";
 
 export const name = "text-to-image";
 
-export const inject = ["vercelSatoriPngService"];
+export const inject = ["toImageService"];
 
 export interface Config {
   background: string;
@@ -84,14 +84,19 @@ export function apply(ctx: Context, config: Config) {
         const elements = h.normalize(fragment);
         await traverseElements(elements, async (element) => {
           if (element.type === "text" && !isNull(element.attrs?.content)) {
-            const png = await ctx.vercelSatoriPngService.htmlToPng(
-              `<div style="${baseStyle}">${element.attrs.content}</div>`,
+            const reactElement =
+              ctx.toImageService.toReactElement.htmlToReactElement(
+                `<div style="${baseStyle}">${element.attrs.content}</div>`,
+              );
+            const svg =
+              await ctx.toImageService.reactElementToSvg.satori(reactElement);
+            const img = await ctx.toImageService.svgToImage.skiaCanvasCanvg(
+              svg,
               {
-                // showLog: true,
-                converter: "skia-canvas-canvg",
+                format: "png",
               },
             );
-            return h.image((await png.toArray())[0], "image/png");
+            return h.image(img, "image/png");
           }
         });
         return argv.session.send(elements);
