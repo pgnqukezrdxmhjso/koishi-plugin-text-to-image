@@ -92,9 +92,7 @@ export function apply(ctx: Context, config: Config) {
               await ctx.toImageService.reactElementToSvg.satori(reactElement);
             const img = await ctx.toImageService.svgToImage.skiaCanvasCanvg(
               svg,
-              {
-                format: "png",
-              },
+              "png",
             );
             return h.image(img, "image/png");
           }
