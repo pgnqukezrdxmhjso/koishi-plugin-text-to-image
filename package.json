@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-text-to-image",
   "description": "text to image",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
@@ -36,7 +36,7 @@
     "koishi": "^4.18.10"
   },
   "devDependencies": {
-    "koishi-plugin-to-image-service": "^0.1.3"
+    "koishi-plugin-to-image-service": "^1.0.1"
   },
   "koishi": {
     "service": {

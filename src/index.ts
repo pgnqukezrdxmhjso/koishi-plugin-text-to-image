@@ -75,7 +75,7 @@ async function traverseElements(
 }
 
 export function apply(ctx: Context, config: Config) {
-  const baseStyle = `white-space: pre-wrap;background:${config.background};`;
+  const baseStyle = `white-space: pre-wrap;background-color:${config.background};`;
   ctx
     .command("cmdToImg <cmd:text>")
     .alias("c2i")
@@ -84,15 +84,12 @@ export function apply(ctx: Context, config: Config) {
         const elements = h.normalize(fragment);
         await traverseElements(elements, async (element) => {
           if (element.type === "text" && !isNull(element.attrs?.content)) {
-            const reactElement =
-              ctx.toImageService.toReactElement.htmlToReactElement(
-                `<div style="${baseStyle}">${element.attrs.content}</div>`,
-              );
-            const svg =
-              await ctx.toImageService.reactElementToSvg.satori(reactElement);
-            const img = await ctx.toImageService.svgToImage.skiaCanvasCanvg(
-              svg,
-              "png",
+            const img = await ctx.toImageService.htmlToImage(
+              `<div style="${baseStyle}">${element.attrs.content}</div>`,
+              {
+                format: "jpeg",
+                quality: 75,
+              },
             );
             return h.image(img, "image/png");
           }
